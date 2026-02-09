@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Undangan Pernikahan</title>
+
+<style>
+:root {
+    --primary: #1f3d2b;
+    --secondary: #e8f0eb;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: 'Georgia', serif;
+    background: var(--secondary);
+    color: #333;
+}
+
+/* ===== COVER ===== */
+.cover {
+    height: 100vh;
+    background: url('cover.jpg') center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+.cover::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    pointer-events: none;
+}
+
+.cover * {
+    position: relative;
+}
+
+.cover h1 {
+    font-size: 36px;
+    margin: 0;
+}
+
+.cover p {
+    font-size: 16px;
+    letter-spacing: 0px;
+}
+
+.btn {
+    display: block;
+    width: 70%;
+    max-width: 260px;
+
+    margin: 20px auto;
+    padding: 14px 0;
+
+    background: #2f6f4e;
+    color: #ffffff;
+
+    font-size: 15px;
+    text-align: center;
+    text-decoration: none;
+
+    border-radius: 12px;
+    
+}
+
+/* ===== SECTION UMUM ===== */
+section {
+    padding: 15px 20px;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 26px;
+    margin-bottom: 20px;
+    color: var(--primary);
+}
+
+/* ===== FOTO FULL ===== */
+.full-image img {
+    width: 100%;
+    max-width: 420px;
+    border-radius: 16px;
+}
+
+/* ===== ACARA ===== */
+.acara img {
+    width: 100%;
+    max-width: 420px;
+    border-radius: 16px;
+}
+
+/* ===== REKENING ===== */
+.card {
+    background: white;
+    max-width: 420px;
+    margin: auto;
+    padding: 25px;
+    border-radius: 16px;
+}
+
+.rek {
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    padding: 30px;
+    font-size: 14px;
+    color: #777;
+}
+
+/* ===== AUDIO FIX ===== */
+audio {
+    display: none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- AUDIO -->
+<audio id="music" loop>
+    <source src="lagu.mp3" type="audio/mpeg">
+</audio>
+
+<!-- COVER -->
+<div class="cover" id="cover">
+    <button class="btn" onclick="openInvite()">Buka Undangan</button>
+</div>
+
+<!-- FOTO PREWEDDING -->
+<section class="full-image" id="prewed">
+    <h2 class="section-title">Bride and Groom</h2>
+    <img src="prewed.jpg" alt="Prewedding">
+</section>
+
+<!-- DETAIL ACARA -->
+<section class="acara">
+    <h2 class="section-title">Save The Date</h2>
+    <img src="acara.jpg" alt="Detail Acara">
+</section>
+<section>
+<section class="acara">
+    <h2 class="section-title">Scan Lokasi</h2>
+        <a class="btn" href="https://maps.google.com" target="_blank">Lihat Lokasi</a>
+    <img src ="lokasi2.jpg" alt="scan lokasi">
+</section>
+
+<!-- REKENING -->
+<section>
+    <h2 class="section-title">Amplop Digital</h2>
+    <div class="card">
+        <p>Doa restu Anda adalah hadiah terindah bagi kami. Namun jika berhalangan hadir dan berkenan:</p>
+        <p class="rek">BRI<br><strong>5916 0103 4361 533</strong><br>a.n Hanifah Khansa Khairunnisa</p>
+        <p class="rek">BRI<br><strong>5916 0103 4358 530</strong><br>a.n Muhammad Rafli</p>
+    </div>
+</section>
+
+<section>
+  <section class ="acara">
+  <h2 class="section-title">Our Gallery</h2> 
+  <img src = "prewedding.jpg" alt="Our Gallery">
+  </img>
+</section>
+<script>
+function openInvite() {
+    document.getElementById("cover").style.display = "none";
+    document.getElementById("music").play();
+}
+</script>
+<footer>
+    Terima kasih atas kehadiran dan doa restu dari teman-teman
+</footer>
+
+</body>
+</html>
