@@ -32,6 +32,7 @@ body {
     align-items: center;
     color: white;
     text-align: center;
+    position: relative;
 }
 .cover::after {
     content: '';
@@ -50,6 +51,11 @@ body {
     margin: 0;
 }
 
+.cover h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
 .cover p {
     font-size: 16px;
     letter-spacing: 0px;
@@ -59,19 +65,14 @@ body {
     display: block;
     width: 70%;
     max-width: 260px;
-
     margin: 20px auto;
     padding: 14px 0;
-
     background: #2f6f4e;
     color: #ffffff;
-
     font-size: 15px;
     text-align: center;
     text-decoration: none;
-
     border-radius: 12px;
-    
 }
 
 /* ===== SECTION UMUM ===== */
@@ -137,6 +138,45 @@ audio {
 
 <!-- COVER -->
 <div class="cover" id="cover">
+    <h3 id="guest-name">Selamat datang!</h3> <!-- Nama tamu akan muncul di sini -->
+    <script>
+// ===== DAFTAR TAMU =====
+const daftarTamu = [
+"Dahlia","Nila","Khafi","Puji","Dea","Elsa","Dinda","Arni","Selsa","Aril",
+"Dimas","Ulil","Haris","Adhi","Nazar","Riska","Julia","Dimas","Apitri","Hepi",
+"Haris","Happy","Vina","Defiatun","Evelyn","Devy Chusna","Uswatun","Rinanda","Widya","Fatma",
+"Ana","Siska","Maziyah","Tasya","Nanda","Latifa","Putri","Isna","Lina","Nurhid",
+"Fera","Yunita","Khoirina","Liyah","Eka","Anom","Arif","Agus","Anam","Risky",
+"Fifi","Anggun","Nadia","Nadia","Rifky","Ryan","Wildan","Wisnu","David","Sandi",
+"Zubaedi","Vina","Dennis","Asri","Najih","Fidia","Galang & Octa","Ashar","Isa Dewo","Mubin",
+"Dila","Yaqin","Alvian","Agus","Lutfi","Meyta","Adam","Eli","Feri","Basyid",
+"Nova","Itoul","zubaedi","Yogi","Nafa","Imam","Jaya","Jihan","Firman","Lintang",
+"Tika","Fajrika","Bapak Nanang Apriliyanto","Bapak Gilang Kharisma Putra","Ibu Siti Abdillah","Ibu Eka Kurnia","Ibu Fitria Yuni","Zul","Wis","Viza","Amel",
+"Novika","Sudirman","Bunda Novi","Bunda Imroatul","Ibu Milka","Ibu Tata","Wahyu","Jian","Fatoni","Anang",
+"Riski dwi","Nopita","Tya","Damia","Erika","Adillia","Silda","Ani","Ani Suryani","Anita",
+"Tsabit","Vella","Usna","Dheny","Dicky","Hana","Faqih","Fika","Gina","Ihan",
+"Khusni","Ali","Leindra","Linda","Meylina","Anang","Nuria","Ridwan","Yasinta","Syifa",
+"Ulil","Alif","Alina","SD N Pojoksari","Rifky","Syifa","Queen","Yunita","Anjar","Yohana",
+"Syamsul","Adam","Marcell","Herlina","Pandu","Efendi","Nadia","Lina","Bobby","Vivi",
+"Greget","Septi","Yunita","Sulis","Wis","Fauzul","Isti","Dwi","Liyak","Heru",
+"Yaya","Nugroho","Dadang","Rofiq","Helmi","Jidan","Aji & Partner","Caca & Partner","Reyhan","Ajat & Erliza",
+"Nurom","bintang","Esthiana","Susi","Dhita"
+];
+
+// Ambil id dari URL
+const params = new URLSearchParams(window.location.search);
+const id = parseInt(params.get("id")) || 0; // default 0
+const namaTamu = daftarTamu[id - 1] || "Kepada Yth Bapak/Ibu/Saudara/Saudari";
+
+// Tampilkan nama tamu di cover
+document.getElementById("guest-name").innerText = namaTamu;
+
+// Fungsi buka undangan & mainkan musik
+function openInvite() {
+    document.getElementById("cover").style.display = "none";
+    document.getElementById("music").play();
+}
+</script>
     <button class="btn" onclick="openInvite()">Buka Undangan</button>
 </div>
 
@@ -151,11 +191,11 @@ audio {
     <h2 class="section-title">Save The Date</h2>
     <img src="acara.jpg" alt="Detail Acara">
 </section>
-<section>
+
 <section class="acara">
     <h2 class="section-title">Scan Lokasi</h2>
-        <a class="btn" href="https://www.google.com/maps?q=-6.887034,110.191609" target="_blank">Lihat Lokasi</a>"
-    <img src ="lokasi2.jpg" alt="scan lokasi">
+    <a class="btn" href="https://www.google.com/maps?q=-6.887034,110.191609" target="_blank">Lihat Lokasi</a>
+    <img src="lokasi2.jpg" alt="scan lokasi">
 </section>
 
 <!-- REKENING -->
@@ -168,18 +208,37 @@ audio {
     </div>
 </section>
 
-<section>
-  <section class ="acara">
-  <h2 class="section-title">Our Gallery</h2> 
-  <img src = "prewedding.jpg" alt="Our Gallery">
-  </img>
+<!-- GALLERY -->
+<section class="acara">
+    <h2 class="section-title">Our Gallery</h2> 
+    <img src="prewedding.jpg" alt="Our Gallery">
 </section>
+
 <script>
+// ===== DAFTAR TAMU =====
+const daftarTamu = [
+  "Andi",
+  "Sari",
+  "Budi",
+  "Dewi",
+  // dst sampai 200
+];
+
+// Ambil id dari URL
+const params = new URLSearchParams(window.location.search);
+const id = parseInt(params.get("id")) || 0; // default 0
+const namaTamu = daftarTamu[id - 1] || "Selamat datang!";
+
+// Tampilkan nama tamu di cover
+document.getElementById("guest-name").innerText = "Halo, " + namaTamu + "!";
+
+// Fungsi buka undangan & mainkan musik
 function openInvite() {
     document.getElementById("cover").style.display = "none";
     document.getElementById("music").play();
 }
 </script>
+
 <footer>
     Terima kasih atas kehadiran dan doa restu dari teman-teman
 </footer>
