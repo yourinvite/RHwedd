@@ -169,7 +169,7 @@ const id = parseInt(params.get("id")) || 0; // default 0
 const namaTamu = daftarTamu[id - 1] || "Kepada Yth Bapak/Ibu/Saudara/Saudari";
 
 // Tampilkan nama tamu di cover
-document.getElementById("guest-name").innerText = namaTamu;
+document.getElementById("guest-name").innerText = "Kepada Yth Bapak/Ibu/Saudara/Saudari" + namaTamu;
 
 // Fungsi buka undangan & mainkan musik
 function openInvite() {
