@@ -1,48 +1,65 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rafhan Wedding</title>
+  <meta charset="UTF-8">
+  <title>Rafhan Wedding</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
 
-<style>
-body {
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #f8f5f2;
-  font-family: sans-serif;
-}
+    iframe {
+      width: 100%;
+      height: 100vh;
+      border: none;
+    }
 
-button {
-  padding: 15px 25px;
-  border-radius: 30px;
-  border: none;
-  background: #b76e79;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-}
-</style>
+    button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 15px;
+      border-radius: 25px;
+      border: none;
+      background: #b76e79;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      z-index: 999;
+    }
+  </style>
 </head>
-
 <body>
 
-<button onclick="openInvite()">Buka Undangan 💍</button>
+<iframe 
+  src="https://www.canva.com/design/DAHBpKCi1eo/RcU4abSDygZz_4SLuKkA4A/view?embed"
+  allowfullscreen>
+</iframe>
+
+<button onclick="toggleMusic()">🎵 Music</button>
 
 <audio id="bg-music" loop>
   <source src="musik.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-const audio = document.getElementById("bg-music");
+  const audio = document.getElementById("bg-music");
 
-function openInvite() {
-  audio.play();
-  window.open("https://nurfajaristiqomah.my.canva.site/rafhanwedding/", "_blank");
-}
+  function toggleMusic() {
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  }
+
+  // supaya musik bisa autoplay setelah klik pertama
+  document.addEventListener("click", function() {
+    audio.play();
+  }, { once: true });
 </script>
 
 </body>
