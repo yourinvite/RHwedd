@@ -4,26 +4,48 @@
   <meta charset="UTF-8">
   <title>Rafhan Wedding</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: sans-serif;
+      background: #f8f5f2;
+      text-align: center;
+    }
+
+    button {
+      padding: 15px 25px;
+      border-radius: 30px;
+      border: none;
+      background: #b76e79;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
 
-<audio id="bg-music" loop autoplay>
+<button onclick="openInvite()">Buka Undangan 💍</button>
+
+<audio id="bg-music" loop>
   <source src="musik.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-  // mainkan musik dulu
   const audio = document.getElementById("bg-music");
 
-  document.addEventListener("click", function() {
+  function openInvite() {
     audio.play();
-    window.location.href = "https://nurfajaristiqomah.my.canva.site/rafhanwedding/";
-  }, { once: true });
+    setTimeout(() => {
+      window.location.href = "https://nurfajaristiqomah.my.canva.site/rafhanwedding/";
+    }, 1000);
+  }
 </script>
-
-<h2 style="text-align:center; margin-top:40vh;">
-Klik di mana saja untuk membuka undangan
-</h2>
 
 </body>
 </html>
