@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Rafhan Wedding</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 15px;
+      border-radius: 25px;
+      border: none;
+      background: #b76e79;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+
+<iframe src="https://nurfajaristiqomah.my.canva.site/rafhanwedding/"></iframe>
+
+<button onclick="toggleMusic()">🎵 Music</button>
+
+<audio id="bg-music" loop>
+  <source src="musik.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const audio = document.getElementById("bg-music");
+
+  function toggleMusic() {
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  }
+
+  document.addEventListener("click", function() {
+    audio.play();
+  }, { once: true });
+</script>
+
+</body>
+</html>
