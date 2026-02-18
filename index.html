@@ -3,153 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Undangan Pernikahan Rafli & Hanifah</title>
+    <title>Undangan Rafli & Hanifah</title>
     <style>
-        /* Menghilangkan scrollbar dan margin putih */
+        /* Hilangkan jarak putih di pinggir layar */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body, html { 
-            width: 100%; 
-            height: 100%; 
-            overflow: hidden; 
-            background-color: #f8f9fa;
-            font-family: 'Arial', sans-serif;
-        }
+        body, html { width: 100%; height: 100%; overflow: hidden; background-color: #ffffff; }
 
-        /* Container Utama Canva agar Full Layar HP */
-        .main-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Overlay Pintu Masuk */
+        /* Layar Pembuka (Overlay) */
         #pintu-masuk {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #ffffff; /* Bisa diganti warna background undanganmu */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            text-align: center;
-            transition: opacity 1s ease-out;
-        }
-
-        #pintu-masuk h1 {
-            font-size: 24px;
-            color: #8a704d;
-            margin-bottom: 10px;
+            position: fixed; width: 100%; height: 100%; background: #ffffff;
+            display: flex; flex-direction: column; justify-content: center;
+            align-items: center; z-index: 9999; text-align: center;
+            transition: 0.8s ease-in-out;
         }
 
         .btn-buka {
-            padding: 12px 30px;
-            font-size: 16px;
-            background-color: #8a704d;
-            color: white;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            margin-top: 20px;
+            padding: 15px 40px; font-size: 18px; cursor: pointer;
+            background: #8a704d; color: white; border: none; border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-family: sans-serif;
         }
+
+        /* Container Canva (Full Screen Mobile) */
+        .canva-wrapper {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+        }
+        iframe { width: 100%; height: 100%; border: none; display: block; }
 
         /* Tombol Musik Melayang */
         #music-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 45px;
-            height: 45px;
-            background: rgba(138, 112, 77, 0.8);
-            border-radius: 50%;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            z-index: 1000;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            font-size: 20px;
+            position: fixed; bottom: 25px; right: 25px; width: 50px; height: 50px;
+            background: rgba(138, 112, 77, 0.8); border-radius: 50%;
+            display: none; justify-content: center; align-items: center;
+            color: white; z-index: 1000; cursor: pointer; font-size: 24px;
         }
-
-        .berputar {
-            animation: rotasi 4s linear infinite;
-        }
-
-        @keyframes rotasi {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+        .putar { animation: spin 4s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
     <div id="pintu-masuk">
-        <p>The Wedding of</p>
-        <h1>Rafli & Hanifah</h1>
+        <h2 style="font-family: serif; color: #8a704d; margin-bottom: 10px;">The Wedding of</h2>
+        <h1 style="font-family: serif; margin-bottom: 30px;">Rafli & Hanifah</h1>
         <button class="btn-buka" onclick="bukaUndangan()">Buka Undangan</button>
     </div>
 
-    <div class="main-container">
+    <div class="canva-wrapper">
         <iframe src="https://www.canva.com/design/DAHBpKCi1eo/RcU4abSDygZz_4SLuKkA4A/view?embed" allow="autoplay"></iframe>
     </div>
 
-    <div id="music-btn" onclick="toggleMusik()">
-        <span id="ikon">🎵</span>
-    </div>
+    <div id="music-btn" onclick="toggleMusik()">🎵</div>
 
-    <audio id="laguUndangan" loop>
-        <source src="musik.mp3" type="audio/mpeg">
+    <audio id="myAudio" loop>
+        <source src="Musik.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        var audio = document.getElementById("laguUndangan");
-        var btnMusik = document.getElementById("music-btn");
-        var ikon = document.getElementById("ikon");
+        const audio = document.getElementById('myAudio');
+        const overlay = document.getElementById('pintu-masuk');
+        const btn = document.getElementById('music-btn');
 
         function bukaUndangan() {
-            // Sembunyikan Overlay
-            var overlay = document.getElementById("pintu-masuk");
-            overlay.style.opacity = "0";
-            setTimeout(function() {
-                overlay.style.display = "none";
-            }, 1000);
+            // Sembunyikan layar putih
+            overlay.style.opacity = '0';
+            setTimeout(() => { 
+                overlay.style.display = 'none'; 
+            }, 800);
 
-            // Putar Lagu (Wajib dipicu tombol untuk bypass browser)
-            audio.play().catch(function(e) {
-                console.log("Audio play diblokir browser, tunggu interaksi berikutnya.");
+            // Putar Musik.mp3
+            audio.play().catch(err => {
+                console.log("Audio diblokir, butuh klik manual.");
             });
 
-            // Munculkan tombol musik di pojok
-            btnMusik.style.display = "flex";
-            btnMusik.classList.add("berputar");
+            // Tampilkan tombol musik di pojok
+            btn.style.display = 'flex';
+            btn.classList.add('putar');
         }
 
         function toggleMusik() {
             if (audio.paused) {
                 audio.play();
-                ikon.innerHTML = "🎵";
-                btnMusik.classList.add("berputar");
+                btn.classList.add('putar');
             } else {
                 audio.pause();
-                ikon.innerHTML = "🔇";
-                btnMusik.classList.remove("berputar");
+                btn.classList.remove('putar');
             }
         }
     </script>
-
 </body>
 </html>
