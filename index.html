@@ -4,63 +4,26 @@
   <meta charset="UTF-8">
   <title>Rafhan Wedding</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-    }
-
-    iframe {
-      width: 100%;
-      height: 100vh;
-      border: none;
-    }
-
-    button {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      padding: 10px 15px;
-      border-radius: 25px;
-      border: none;
-      background: #b76e79;
-      color: white;
-      font-size: 14px;
-      cursor: pointer;
-      z-index: 999;
-    }
-  </style>
 </head>
 <body>
 
-<iframe 
-  src="https://www.canva.com/design/DAHBpKCi1eo/RcU4abSDygZz_4SLuKkA4A/view?embed"
-  allowfullscreen>
-</iframe>
-
-<button onclick="toggleMusic()">🎵 Music</button>
-
-<audio id="bg-music" loop>
+<audio id="bg-music" loop autoplay>
   <source src="musik.mp3" type="audio/mpeg">
 </audio>
 
 <script>
+  // mainkan musik dulu
   const audio = document.getElementById("bg-music");
 
-  function toggleMusic() {
-    if (audio.paused) {
-      audio.play();
-    } else {
-      audio.pause();
-    }
-  }
-
-  // supaya musik bisa autoplay setelah klik pertama
   document.addEventListener("click", function() {
     audio.play();
+    window.location.href = "https://nurfajaristiqamah.canva.site/PASTE_SLUG_KAMU";
   }, { once: true });
 </script>
+
+<h2 style="text-align:center; margin-top:40vh;">
+Klik di mana saja untuk membuka undangan
+</h2>
 
 </body>
 </html>
