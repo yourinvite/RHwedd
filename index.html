@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Rafhan Wedding</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rafhan Wedding</title>
 
-  <style>
-    body {
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      font-family: sans-serif;
-      background: #f8f5f2;
-      text-align: center;
-    }
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f8f5f2;
+  font-family: sans-serif;
+}
 
-    button {
-      padding: 15px 25px;
-      border-radius: 30px;
-      border: none;
-      background: #b76e79;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
-  </style>
+button {
+  padding: 15px 25px;
+  border-radius: 30px;
+  border: none;
+  background: #b76e79;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+</style>
 </head>
+
 <body>
 
 <button onclick="openInvite()">Buka Undangan 💍</button>
@@ -37,14 +37,12 @@
 </audio>
 
 <script>
-  const audio = document.getElementById("bg-music");
+const audio = document.getElementById("bg-music");
 
-  function openInvite() {
-    audio.play();
-    setTimeout(() => {
-      window.location.href = "https://nurfajaristiqomah.my.canva.site/rafhanwedding/";
-    }, 1000);
-  }
+function openInvite() {
+  audio.play();
+  window.open("https://nurfajaristiqomah.my.canva.site/rafhanwedding/", "_blank");
+}
 </script>
 
 </body>
