@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Undangan Rafli & Hanifah</title>
     <style>
-        /* Menghilangkan semua space kosong */
+        /* Reset total agar tidak ada scrollbar */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body, html { 
             width: 100%; 
@@ -14,23 +14,26 @@
             background-color: #ffffff; 
         }
 
-        /* Container Canva: Memaksa Full Screen Seluler */
+        /* Container Canva: Dibuat sedikit lebih tinggi untuk menyembunyikan navigasi bawah Canva */
         .canva-container {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 100%; /* Menambah tinggi sedikit untuk memotong bar bawah */
             z-index: 1;
             overflow: hidden;
+            background: #fff;
         }
 
-        /* Memastikan Iframe memenuhi layar tanpa scroll luar */
+        /* Memaksa Iframe tampil penuh tanpa margin */
         iframe {
             width: 100%;
             height: 100%;
             border: none;
             display: block;
+            /* Trik agar konten benar-benar memenuhi layar seluler */
+            object-fit: cover;
         }
 
         /* Overlay Pintu Masuk */
@@ -47,6 +50,7 @@
             align-items: center;
             z-index: 9999;
             text-align: center;
+            transition: opacity 0.5s ease;
         }
 
         .btn-open {
@@ -109,16 +113,16 @@
         const overlay = document.getElementById('overlay');
 
         function mulaiUndangan() {
-            // Hilangkan overlay
-            overlay.style.display = 'none';
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 500);
 
-            // Paksa putar audio
             audio.play().then(() => {
                 btn.style.display = 'flex';
                 btn.classList.add('spin');
             }).catch(err => {
-                console.log("Audio gagal: ", err);
-                btn.style.display = 'flex'; // Tetap munculkan tombol agar user bisa klik sendiri
+                btn.style.display = 'flex';
             });
         }
 
