@@ -5,38 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Undangan Rafli & Hanifah</title>
     <style>
-        /* Reset total agar tidak ada scrollbar */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body, html { 
             width: 100%; 
             height: 100%; 
             overflow: hidden; 
-            background-color: #ffffff; 
+            background-color: #000; /* Background hitam agar seamless jika ada jeda loading */
         }
 
-        /* Container Canva: Dibuat sedikit lebih tinggi untuk menyembunyikan navigasi bawah Canva */
-        .canva-container {
-            position: fixed;
+        /* Container Utama */
+        .canva-wrapper {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%; /* Menambah tinggi sedikit untuk memotong bar bawah */
-            z-index: 1;
-            overflow: hidden;
-            background: #fff;
-        }
-
-        /* Memaksa Iframe tampil penuh tanpa margin */
-        iframe {
-            width: 100%;
             height: 100%;
-            border: none;
-            display: block;
-            /* Trik agar konten benar-benar memenuhi layar seluler */
-            object-fit: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
         }
 
-        /* Overlay Pintu Masuk */
+        /* Memaksa Iframe untuk Full Screen & Menghilangkan Bar Navigasi Canva */
+        iframe {
+            position: absolute;
+            width: 100vw;
+            height: 125vh; /* Dibuat lebih tinggi untuk menyembunyikan navigasi bawah Canva */
+            top: -5vh; /* Geser sedikit ke atas untuk menyembunyikan bar atas */
+            border: none;
+        }
+
+        /* Overlay Pembuka */
         #overlay {
             position: fixed;
             top: 0;
@@ -50,7 +49,7 @@
             align-items: center;
             z-index: 9999;
             text-align: center;
-            transition: opacity 0.5s ease;
+            transition: 0.5s;
         }
 
         .btn-open {
@@ -62,8 +61,6 @@
             border-radius: 50px;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            font-family: sans-serif;
-            margin-top: 20px;
         }
 
         /* Tombol Musik Melayang */
@@ -82,11 +79,10 @@
             z-index: 1000;
             cursor: pointer;
             font-size: 22px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
-        .spin { animation: rotation 4s linear infinite; }
-        @keyframes rotation { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .spin { animation: rotate 4s linear infinite; }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -94,46 +90,38 @@
     <div id="overlay">
         <p style="font-family: serif; color: #8a704d;">The Wedding of</p>
         <h1 style="font-family: serif; margin: 10px 0 25px;">Rafli & Hanifah</h1>
-        <button class="btn-open" onclick="mulaiUndangan()">Buka Undangan</button>
+        <button class="btn-open" onclick="start()">Buka Undangan</button>
     </div>
 
-    <div class="canva-container">
+    <div class="canva-wrapper">
         <iframe src="https://www.canva.com/design/DAHBpKCi1eo/RcU4abSDygZz_4SLuKkA4A/view?embed" allow="autoplay"></iframe>
     </div>
 
-    <div id="music-btn" onclick="toggleAudio()">🎵</div>
+    <div id="music-btn" onclick="toggle()">🎵</div>
 
-    <audio id="undanganAudio" loop>
+    <audio id="audio" loop>
         <source src="musik.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        const audio = document.getElementById('undanganAudio');
+        const audio = document.getElementById('audio');
         const btn = document.getElementById('music-btn');
-        const overlay = document.getElementById('overlay');
 
-        function mulaiUndangan() {
-            overlay.style.opacity = '0';
-            setTimeout(() => {
-                overlay.style.display = 'none';
-            }, 500);
-
+        function start() {
+            document.getElementById('overlay').style.opacity = '0';
+            setTimeout(() => { document.getElementById('overlay').style.display = 'none'; }, 500);
+            
             audio.play().then(() => {
                 btn.style.display = 'flex';
                 btn.classList.add('spin');
-            }).catch(err => {
+            }).catch(() => {
                 btn.style.display = 'flex';
             });
         }
 
-        function toggleAudio() {
-            if (audio.paused) {
-                audio.play();
-                btn.classList.add('spin');
-            } else {
-                audio.pause();
-                btn.classList.remove('spin');
-            }
+        function toggle() {
+            if (audio.paused) { audio.play(); btn.classList.add('spin'); }
+            else { audio.pause(); btn.classList.remove('spin'); }
         }
     </script>
 </body>
