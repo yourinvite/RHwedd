@@ -2,94 +2,207 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Undangan Rafli & Hanifah</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan Digital</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body, html { 
-            width: 100%; 
-            height: 100%; 
-            overflow: hidden; 
-            background-color: #fff; 
+        :root {
+            --primary-maroon: #800000;
+            --soft-pink: #fce4ec;
+            --accent-pink: #f06292;
+            --white: #ffffff;
         }
 
-        /* Container utama untuk memotong bagian yang keluar layar */
-        .outer-wrapper {
+        body, html {
+            margin: 0; padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+            background: #000;
+            color: var(--white);
+            overflow-x: hidden;
+        }
+
+        .section {
             position: relative;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
             overflow: hidden;
         }
 
-        /* Trik Zoom: Memperbesar iframe agar navigasi & bar hitam terpotong */
-        iframe {
+        .video-bg {
             position: absolute;
+            top: 50%; left: 50%;
             width: 100%;
-            height: 115%; /* Dibuat lebih tinggi untuk buang navigasi bawah */
-            top: -5%;     /* Geser ke atas untuk buang bar atas */
-            left: 0;
+            height: 100%;
+            transform: translate(-50%, -50%);
+            object-fit: cover; 
+            z-index: 1;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 2; 
+        }
+
+        .content {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+        }
+
+        #namaTamu {
+            font-size: 2.2rem;
+            margin: 10px 0 25px 0;
+            font-family: 'Georgia', serif;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            color: var(--soft-pink);
+        }
+
+        .btn {
+            background: var(--primary-maroon);
+            color: #fff;
+            padding: 12px 25px;
             border: none;
-            /* Transform scale jika masih ada sisa hitam di samping */
-            transform: scale(1.05); 
-            transform-origin: top center;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
 
-        /* Tombol Buka Undangan */
-        #pintu {
+        #rsvp-section {
+            background: #fffafa;
+            height: auto;
+            min-height: 100vh;
+            padding: 40px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #333;
+        }
+
+        .rsvp-box {
+            background: var(--soft-pink);
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 330px;
+            width: 85%;
+            border: 2px solid var(--primary-maroon);
+        }
+
+        input, select, textarea {
+            width: 100%; padding: 10px; margin: 8px 0;
+            border-radius: 8px; border: 1px solid var(--accent-pink);
+        }
+
+        #guestbook {
+            margin-top: 15px; max-height: 200px; overflow-y: auto;
+            text-align: left; background: rgba(255,255,255,0.6);
+            padding: 10px; border-radius: 10px;
+        }
+
+        #cover {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #ffffff; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; z-index: 10000;
+            z-index: 9999; transition: 1s ease-in-out;
         }
-        .btn-buka {
-            padding: 15px 40px; border-radius: 50px; border: none;
-            background: #8a704d; color: white; font-size: 18px;
-            cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        /* Tombol Musik */
-        #mu-btn {
-            position: fixed; bottom: 20px; right: 20px; width: 50px; height: 50px;
-            background: rgba(138, 112, 77, 0.9); border-radius: 50%;
-            display: none; justify-content: center; align-items: center;
-            color: white; z-index: 9999; cursor: pointer; font-size: 24px;
-        }
-        .spin { animation: rotate 4s linear infinite; }
-        @keyframes rotate { 100% { transform: rotate(360deg); } }
+        .hidden { transform: translateY(-100%); pointer-events: none; }
     </style>
 </head>
 <body>
 
-    <div id="pintu">
-        <h2 style="font-family: serif; color: #8a704d; margin-bottom: 10px;">The Wedding of</h2>
-        <h1 style="font-family: serif; margin-bottom: 30px;">Rafli & Hanifah</h1>
-        <button class="btn-buka" onclick="start()">Buka Undangan</button>
-    </div>
+    <audio id="audio" loop><source src="musik.mp3" type="audio/mpeg"></audio>
 
-    <div class="outer-wrapper">
-        <iframe src="https://www.canva.com/design/DAHBpKCi1eo/RcU4abSDygZz_4SLuKkA4A/view?embed" allow="autoplay"></iframe>
-    </div>
+    <section class="section" id="cover">
+        <video class="video-bg" autoplay muted loop playsinline><source src="halamandepan.mp4" type="video/mp4"></video>
+        <div class="overlay"></div>
+        <div class="content">
+            <p style="margin-top: 20px; font-size: 0.8rem; opacity: 0.8;">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+            <h1 id="namaTamu">Tamu Undangan</h1>
+            <button class="btn" onclick="startApp()">BUKA UNDANGAN</button>
+        </div>
+    </section>
 
-    <div id="mu-btn" onclick="toggle()">🎵</div>
+    <section class="section">
+        <video class="video-bg" autoplay muted loop playsinline><source src="sampul.mp4" type="video/mp4"></video>
+    </section>
 
-    <audio id="lagu" loop>
-        <source src="musik.mp3" type="audio/mpeg">
-    </audio>
+    <section class="section">
+        <video class="video-bg" autoplay muted loop playsinline><source src="Tanggal.mp4" type="video/mp4"></video>
+        <div class="content">
+            <a href="https://maps.google.com" target="_blank" class="btn">📍 LIHAT LOKASI</a>
+        </div>
+    </section>
+
+    <section class="section"><video class="video-bg" autoplay muted loop playsinline><source src="kisah1.mp4" type="video/mp4"></video></section>
+    <section class="section"><video class="video-bg" autoplay muted loop playsinline><source src="kisah2.mp4" type="video/mp4"></video></section>
+    <section class="section"><video class="video-bg" autoplay muted loop playsinline><source src="galeri.mp4" type="video/mp4"></video></section>
+    <section class="section"><video class="video-bg" autoplay muted loop playsinline><source src="prewed.mp4" type="video/mp4"></video></section>
+    <section class="section"><video class="video-bg" autoplay muted loop playsinline><source src="Amplop.mp4" type="video/mp4"></video></section>
+
+    <section id="rsvp-section">
+        <div class="rsvp-box">
+            <h2 style="color: var(--primary-maroon);">RSVP & Ucapan</h2>
+            <input type="text" id="nama" placeholder="Nama Anda">
+            <select id="status">
+                <option value="Hadir">Saya Akan Hadir</option>
+                <option value="Tidak Hadir">Berhalangan Hadir</option>
+            </select>
+            <textarea id="pesan" rows="3" placeholder="Tulis Ucapan..."></textarea>
+            <button class="btn" style="width:100%" onclick="sendRSVP()">KIRIM</button>
+            <div id="guestbook">
+                <div id="no-msg" style="text-align:center; opacity:0.5;"><i>Belum ada ucapan.</i></div>
+            </div>
+        </div>
+    </section>
 
     <script>
-        const audio = document.getElementById('lagu');
-        const btn = document.getElementById('mu-btn');
+        // DAFTAR TAMU (Hanya jika kamu ingin sistem ID, tapi lebih baik sistem "to" langsung)
+        const params = new URLSearchParams(window.location.search);
+        let namaTampil = "Tamu Undangan";
 
-        function start() {
-            document.getElementById('pintu').style.opacity = '0';
-            setTimeout(() => { document.getElementById('pintu').style.display = 'none'; }, 500);
-            audio.play();
-            btn.style.display = 'flex';
-            btn.classList.add('spin');
+        // Cek jika ada parameter 'to' (nama langsung)
+        if (params.get('to')) {
+            namaTampil = decodeURIComponent(params.get('to')).replace(/\+/g, ' ');
+        } 
+        // Cek jika ada parameter 'id' (berdasarkan urutan di spreadsheet)
+        else if (params.get('id')) {
+            const daftarTamu = ["Dahlia","Nila","Khafi","Puji","Dea","Elsa","Dinda","Arni","Selsa","Aril","Dimas","Ulil","Haris","Adhi","Nazar","Riska","Julia","Dimas","Apitri","Hepi","Haris","Happy","Vina","Defiatun","Evelyn","Devy Chusna","Uswatun","Rinanda","Widya","Fatma","Ana","Siska","Maziyah","Tasya","Nanda","Latifa","Putri","Isna","Lina","Nurhid","Fera","Yunita","Khoirina","Liyah","Eka","Anom","Arif","Agus","Anam","Risky","Fifi","Anggun","Nadia","Nadia","Rifky","Ryan","Wildan","Wisnu","David","Sandi","Zubaedi","Vina","Dennis","Asri","Najih","Fidia","Galang & Octa","Ashar","Isa Dewo","Mubin","Dila","Yaqin","Alvian","Agus","Lutfi","Meyta","Adam","Eli","Feri","Basyid","Nova","Itoul","zubaedi","Yogi","Nafa","Imam","Jaya","Jihan","Firman","Lintang","Tika","Fajrika","Bapak Nanang Apriliyanto","Bapak Gilang Kharisma Putra","Ibu Siti Abdillah","Ibu Eka Kurnia","Ibu Fitria Yuni","Zul","Wis","Viza","Amel","Novika","Sudirman","Bunda Novi","Bunda Imroatul","Ibu Milka","Ibu Tata","Wahyu","Jian","Fatoni","Anang","Riski dwi","Nopita","Tya","Damia","Erika","Adillia","Silda","Ani","Ani Suryani","Anita","Tsabit","Vella","Usna","Dheny","Dicky","Hana","Faqih","Fika","Gina","Ihan","Khusni","Ali","Leindra","Linda","Meylina","Anang","Nuria","Ridwan","Yasinta","Syifa","Ulil","Alif","Alina","SD N Pojoksari","Rifky","Syifa","Queen","Yunita","Anjar","Yohana","Syamsul","Adam","Marcell","Herlina","Pandu","Efendi","Nadia","Lina","Bobby","Vivi","Greget","Septi","Yunita","Sulis","Wis","Fauzul","Isti","Dwi","Liyak","Heru","Yaya","Nugroho","Dadang","Rofiq","Helmi","Jidan","Aji & Partner","Caca & Partner","Reyhan","Ajat & Erliza","Nurom","bintang","Esthiana","Susi","Dhita"];
+            const index = parseInt(params.get('id')) - 1;
+            if (daftarTamu[index]) namaTampil = daftarTamu[index];
         }
 
-        function toggle() {
-            if (audio.paused) { audio.play(); btn.classList.add('spin'); }
-            else { audio.pause(); btn.classList.remove('spin'); }
+        // Tampilkan Nama & Rapikan Kapital
+        namaTampil = namaTampil.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+        document.getElementById('namaTamu').innerText = namaTampil;
+        document.getElementById('nama').value = namaTampil;
+
+        function startApp() {
+            document.getElementById('audio').play();
+            document.getElementById('cover').classList.add('hidden');
+            document.body.style.overflow = "auto";
+        }
+
+        function sendRSVP() {
+            const nama = document.getElementById('nama').value;
+            const status = document.getElementById('status').value;
+            const pesan = document.getElementById('pesan').value;
+            if(!nama || !pesan) { alert("Lengkapi data ya!"); return; }
+            const gb = document.getElementById('guestbook');
+            const noMsg = document.getElementById('no-msg');
+            if(noMsg) noMsg.remove();
+            const div = document.createElement('div');
+            div.style.padding = "8px 0";
+            div.style.borderBottom = "1px solid var(--accent-pink)";
+            div.innerHTML = `<b>${nama}</b> <small>(${status})</small><br>${pesan}`;
+            gb.prepend(div);
+            document.getElementById('pesan').value = "";
         }
     </script>
 </body>
