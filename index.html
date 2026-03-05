@@ -19,33 +19,46 @@
 
         body, html {
             margin: 0; padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            scroll-behavior: smooth;
+            font-family: 'Segoe UI', sans-serif;
             background: #000;
             color: var(--white);
-            /* Kunci scroll saat pertama kali buka */
-            overflow: hidden; 
+            overflow-x: hidden;
         }
 
-        .section {
-            position: relative;
-            width: 100%;
-            height: 90vh; 
+        /* Halaman Depan / Cover */
+        #cover {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100vh;
+            background: #000;
+            z-index: 9999;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
+            transition: 1s ease-in-out;
+        }
+
+        .hidden { transform: translateY(-100%); opacity: 0; pointer-events: none; }
+
+        /* Pengaturan Video agar Pas di Layar */
+        .section {
+            position: relative;
+            width: 100%;
+            height: 100vh; /* Pakai 100vh agar pas satu layar penuh */
+            display: flex;
+            justify-content: center;
+            align-items: center;
             overflow: hidden;
-            background: #000;
         }
 
         .video-bg {
             position: absolute;
             top: 50%; left: 50%;
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             transform: translate(-50%, -50%);
-            object-fit: cover; 
+            object-fit: cover;
             z-index: 1;
         }
 
@@ -53,18 +66,19 @@
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.4);
-            z-index: 2; 
+            z-index: 2;
         }
 
         .content {
             position: relative;
             z-index: 10;
+            text-align: center;
             width: 90%;
         }
 
         #namaTamu {
             font-family: 'Pinyon Script', cursive;
-            font-size: 2.8rem; 
+            font-size: 2.8rem;
             margin: 10px 0 25px 0;
             color: var(--soft-pink);
             text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
@@ -73,130 +87,81 @@
         .btn {
             background: var(--primary-maroon);
             color: #fff;
-            padding: 12px 25px;
+            padding: 12px 30px;
             border: none;
             border-radius: 50px;
             cursor: pointer;
             font-weight: bold;
             text-decoration: none;
             display: inline-block;
-            transition: 0.3s;
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
 
-        #loader {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: #000;
-            display: flex; justify-content: center; align-items: center;
-            z-index: 10000;
-            transition: 0.5s;
-        }
-
-        #cover {
-            position: fixed; 
-            top: 0; left: 0; 
-            width: 100%; height: 100vh;
-            background: #000; /* Agar tidak transparan */
-            z-index: 9999; 
-            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .hidden { transform: translateY(-100%); pointer-events: none; }
-
+        /* Form RSVP */
         #rsvp-section {
             background: #fffafa;
-            height: auto;
-            min-height: 100vh;
-            padding: 40px 0;
+            padding: 50px 0;
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            justify-content: center;
             color: #333;
         }
 
         .rsvp-box {
             background: var(--soft-pink);
-            padding: 20px;
+            padding: 25px;
             border-radius: 15px;
-            max-width: 330px;
             width: 85%;
+            max-width: 350px;
             border: 2px solid var(--primary-maroon);
         }
 
         input, select, textarea {
-            width: 100%; padding: 10px; margin: 8px 0;
-            border-radius: 8px; border: 1px solid var(--accent-pink);
+            width: 100%; padding: 10px; margin: 10px 0;
+            border-radius: 8px; border: 1px solid #ccc;
             box-sizing: border-box;
-        }
-
-        #guestbook {
-            margin-top: 15px; max-height: 250px; overflow-y: auto;
-            text-align: left; background: rgba(255,255,255,0.6);
-            padding: 10px; border-radius: 10px;
         }
     </style>
 </head>
-<body>
+<body style="overflow: hidden;"> <audio id="audio" loop><source src="musik.mp3" type="audio/mpeg"></audio>
 
-    <div id="loader"><p style="color:white; font-size: 0.8rem;">MEMUAT UNDANGAN...</p></div>
-
-    <audio id="audio" loop><source src="musik.mp3" type="audio/mpeg"></audio>
-
-    <section id="cover">
-        <video id="videoCover" class="video-bg" autoplay muted loop playsinline preload="auto">
-            <source src="halamandepan.mp4" type="video/mp4">
-        </video>
+    <div id="cover">
+        <video class="video-bg" autoplay muted loop playsinline><source src="halamandepan.mp4" type="video/mp4"></video>
         <div class="overlay"></div>
         <div class="content">
-            <p style="margin-top: 20px; font-size: 0.8rem; opacity: 0.8;">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+            <p style="font-size: 0.9rem; letter-spacing: 1px;">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
             <h1 id="namaTamu">Tamu Undangan</h1>
             <button class="btn" onclick="startApp()">BUKA UNDANGAN</button>
         </div>
-    </section>
+    </div>
 
-    <section class="section"><video class="video-bg" autoplay muted loop playsinline><source src="sampul.mp4" type="video/mp4"></video></section>
-    
-    <section class="section">
-        <video class="video-bg" autoplay muted loop playsinline><source src="Tanggal.mp4" type="video/mp4"></video>
-        <div class="content"><a href="https://maps.google.com" target="_blank" class="btn">KLIK LOKASI</a></div>
-    </section>
+    <div id="wrapper">
+        <div class="section"><video class="video-bg" autoplay muted loop playsinline><source src="sampul.mp4" type="video/mp4"></video></div>
+        <div class="section">
+            <video class="video-bg" autoplay muted loop playsinline><source src="Tanggal.mp4" type="video/mp4"></video>
+            <div class="content"><a href="https://maps.google.com" target="_blank" class="btn">KLIK LOKASI</a></div>
+        </div>
+        <div class="section"><video class="video-bg" autoplay muted loop playsinline><source src="kisah1.mp4" type="video/mp4"></video></div>
+        <div class="section"><video class="video-bg" autoplay muted loop playsinline><source src="kisah2.mp4" type="video/mp4"></video></div>
+        <div class="section"><video class="video-bg" autoplay muted loop playsinline><source src="galeri.mp4" type="video/mp4"></video></div>
+        <div class="section"><video class="video-bg" autoplay muted loop playsinline><source src="prewed.mp4" type="video/mp4"></video></div>
+        <div class="section"><video class="video-bg" autoplay muted loop playsinline><source src="Amplop.mp4" type="video/mp4"></video></div>
 
-    <section class="section"><video class="video-bg" autoplay muted loop playsinline><source src="kisah1.mp4" type="video/mp4"></video></section>
-    <section class="section"><video class="video-bg" autoplay muted loop playsinline><source src="kisah2.mp4" type="video/mp4"></video></section>
-    <section class="section"><video class="video-bg" autoplay muted loop playsinline><source src="galeri.mp4" type="video/mp4"></video></section>
-    <section class="section"><video class="video-bg" autoplay muted loop playsinline><source src="prewed.mp4" type="video/mp4"></video></section>
-    <section class="section"><video class="video-bg" autoplay muted loop playsinline><source src="Amplop.mp4" type="video/mp4"></video></section>
-
-    <section id="rsvp-section">
-        <div class="rsvp-box">
-            <h2 style="color: var(--primary-maroon);">RSVP & Ucapan</h2>
-            <input type="text" id="nama" placeholder="Nama Anda">
-            <select id="status">
-                <option value="Hadir">Saya Akan Hadir</option>
-                <option value="Tidak Hadir">Berhalangan Hadir</option>
-            </select>
-            <textarea id="pesan" rows="3" placeholder="Tulis Ucapan..."></textarea>
-            <button class="btn" style="width:100%" onclick="sendRSVP()">KIRIM</button>
-            <div id="guestbook">
-                <div id="no-msg" style="text-align:center; opacity:0.5;"><i>Belum ada ucapan.</i></div>
+        <div id="rsvp-section">
+            <div class="rsvp-box">
+                <h2 style="color: var(--primary-maroon); text-align: center;">RSVP & Ucapan</h2>
+                <input type="text" id="nama" placeholder="Nama Anda">
+                <select id="status">
+                    <option value="Hadir">Saya Akan Hadir</option>
+                    <option value="Tidak Hadir">Berhalangan Hadir</option>
+                </select>
+                <textarea id="pesan" rows="3" placeholder="Tulis Ucapan..."></textarea>
+                <button class="btn" style="width:100%" onclick="alert('Ucapan terkirim!')">KIRIM</button>
             </div>
         </div>
-    </section>
+    </div>
 
     <script>
-        // Loader Logic
-        const vCover = document.getElementById('videoCover');
-        vCover.oncanplaythrough = function() {
-            document.getElementById('loader').style.opacity = "0";
-            setTimeout(() => { document.getElementById('loader').style.display = "none"; }, 500);
-        };
-        setTimeout(() => { document.getElementById('loader').style.display = "none"; }, 5000);
-
-        // Nama Tamu Logic
+        // Ambil Nama Tamu
         const params = new URLSearchParams(window.location.search);
         let namaTampil = "Tamu Undangan";
         const daftarTamu = ["Dahlia & Partner","Nila","Khafi","Puji","Dea","Elsa","Dinda","Arni","Selsa","Aril","Dimas","Ulil","Haris","Adhi","Nazar","Riska","Julia","Dimas","Apitri","Hepi","Haris","Happy","Vina","Defiatun","Evelyn","Devy Chusna","Uswatun","Rinanda","Widya","Fatma","Ana","Siska","Maziyah","Tasya","Nanda","Latifa","Putri","Isna","Lina","Nurhid","Fera","Yunita","Khoirina","Liyah","Eka","Anom","Arif","Agus","Anam","Risky","Fifi","Anggun","Nadia","Nadia","Rifky","Ryan","Wildan","Wisnu","David","Sandi","Zubaedi","Vina","Dennis","Asri","Najih","Fidia","Galang & Octa","Ashar","Isa Dewo","Mubin","Dila","Yaqin","Alvian","Agus","Lutfi","Meyta","Adam","Eli","Feri","Basyid","Nova","Itoul","zubaedi","Yogi","Nafa","Imam","Jaya","Jihan","Firman","Lintang","Tika","Fajrika","Bapak Nanang Apriliyanto","Bapak Gilang Kharisma Putra","Ibu Siti Abdillah","Ibu Eka Kurnia","Ibu Fitria Yuni","Zul","Wis","Viza","Amel","Novika","Sudirman","Bunda Novi","Bunda Imroatul","Ibu Milka","Ibu Tata","Wahyu","Jian","Fatoni","Anang","Riski dwi","Nopita","Tya","Damia","Erika","Adillia","Silda","Ani","Ani Suryani","Anita","Tsabit","Vella","Usna","Dheny","Dicky","Hana","Faqih","Fika","Gina","Ihan","Khusni","Ali","Leindra","Linda","Meylina","Anang","Nuria","Ridwan","Yasinta","Syifa","Ulil","Alif","Alina","SD N Pojoksari","Rifky","Syifa","Queen","Yunita","Anjar","Yohana","Syamsul","Adam","Marcell","Herlina","Pandu","Efendi","Nadia","Lina","Bobby","Vivi","Greget","Septi","Yunita","Sulis","Wis","Fauzul","Isti","Dwi","Liyak","Heru","Yaya","Nugroho","Dadang","Rofiq","Helmi","Jidan","Aji & Partner","Caca & Partner","Reyhan","Ajat & Erliza","Nurom","bintang","Esthiana","Susi","Dhita","Alumni XII RPL 1","Alumni Bantara Angkatan 14"];
@@ -212,30 +177,12 @@
         document.getElementById('namaTamu').innerText = namaTampil;
         document.getElementById('nama').value = namaTampil;
 
-        // Start App Logic
+        // Fungsi Buka
         function startApp() {
             document.getElementById('audio').play();
             document.getElementById('cover').classList.add('hidden');
-            
             // Buka kunci scroll
             document.body.style.overflow = "auto";
-            document.body.style.overflowX = "hidden";
-        }
-
-        function sendRSVP() {
-            const nama = document.getElementById('nama').value;
-            const status = document.getElementById('status').value;
-            const pesan = document.getElementById('pesan').value;
-            if(!nama || !pesan) { alert("Lengkapi data ya!"); return; }
-            const gb = document.getElementById('guestbook');
-            const noMsg = document.getElementById('no-msg');
-            if(noMsg) noMsg.remove();
-            const div = document.createElement('div');
-            div.style.padding = "8px 0";
-            div.style.borderBottom = "1px solid var(--accent-pink)";
-            div.innerHTML = `<b>${nama}</b> <small>(${status})</small><br>${pesan}`;
-            gb.prepend(div);
-            document.getElementById('pesan').value = "";
         }
     </script>
 </body>
