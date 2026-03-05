@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Undangan Pernikahan Digital</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --primary-maroon: #800000;
@@ -55,12 +60,13 @@
             width: 90%;
         }
 
+        /* Nama Tamu di Cover: Elegan & Ukuran Lebih Proporsional */
         #namaTamu {
-            font-size: 2.2rem;
+            font-family: 'Pinyon Script', cursive;
+            font-size: 2.6rem; 
             margin: 10px 0 25px 0;
-            font-family: 'Georgia', serif;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             color: var(--soft-pink);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
         }
 
         .btn {
@@ -100,10 +106,11 @@
         input, select, textarea {
             width: 100%; padding: 10px; margin: 8px 0;
             border-radius: 8px; border: 1px solid var(--accent-pink);
+            box-sizing: border-box;
         }
 
         #guestbook {
-            margin-top: 15px; max-height: 200px; overflow-y: auto;
+            margin-top: 15px; max-height: 250px; overflow-y: auto;
             text-align: left; background: rgba(255,255,255,0.6);
             padding: 10px; border-radius: 10px;
         }
@@ -129,14 +136,12 @@
         </div>
     </section>
 
-    <section class="section">
-        <video class="video-bg" autoplay muted loop playsinline><source src="sampul.mp4" type="video/mp4"></video>
-    </section>
+    <section class="section"><video class="video-bg" autoplay muted loop playsinline><source src="sampul.mp4" type="video/mp4"></video></section>
 
     <section class="section">
         <video class="video-bg" autoplay muted loop playsinline><source src="Tanggal.mp4" type="video/mp4"></video>
         <div class="content">
-            <a href="https://maps.google.com" target="_blank" class="btn">📍 LIHAT LOKASI</a>
+            <a href="https://maps.app.goo.gl/nqt3w5YeGvZVy92BA?g_st=aw" target="_blank" class="btn"> KLIK LOKASI</a>
         </div>
     </section>
 
@@ -163,22 +168,18 @@
     </section>
 
     <script>
-        // DAFTAR TAMU (Hanya jika kamu ingin sistem ID, tapi lebih baik sistem "to" langsung)
         const params = new URLSearchParams(window.location.search);
         let namaTampil = "Tamu Undangan";
 
-        // Cek jika ada parameter 'to' (nama langsung)
+        const daftarTamu = ["Dahlia & Partner","Nila","Khafi","Puji","Dea","Elsa","Dinda","Arni","Selsa","Aril","Dimas","Ulil","Haris","Adhi","Nazar","Riska","Julia","Dimas","Apitri","Hepi","Haris","Happy","Vina","Defiatun","Evelyn","Devy Chusna","Uswatun","Rinanda","Widya","Fatma","Ana","Siska","Maziyah","Tasya","Nanda","Latifa","Putri","Isna","Lina","Nurhid","Fera","Yunita","Khoirina","Liyah","Eka","Anom","Arif","Agus","Anam","Risky","Fifi","Anggun","Nadia","Nadia","Rifky","Ryan","Wildan","Wisnu","David","Sandi","Zubaedi","Vina","Dennis","Asri","Najih","Fidia","Galang & Octa","Ashar","Isa Dewo","Mubin","Dila","Yaqin","Alvian","Agus","Lutfi","Meyta","Adam","Eli","Feri","Basyid","Nova","Itoul","zubaedi","Yogi","Nafa","Imam","Jaya","Jihan","Firman","Lintang","Tika","Fajrika","Bapak Nanang Apriliyanto","Bapak Gilang Kharisma Putra","Ibu Siti Abdillah","Ibu Eka Kurnia","Ibu Fitria Yuni","Zul","Wis","Viza","Amel","Novika","Sudirman","Bunda Novi","Bunda Imroatul","Ibu Milka","Ibu Tata","Wahyu","Jian","Fatoni","Anang","Riski dwi","Nopita","Tya","Damia","Erika","Adillia","Silda","Ani","Ani Suryani","Anita","Tsabit","Vella","Usna","Dheny","Dicky","Hana","Faqih","Fika","Gina","Ihan","Khusni","Ali","Leindra","Linda","Meylina","Anang","Nuria","Ridwan","Yasinta","Syifa","Ulil","Alif","Alina","SD N Pojoksari","Rifky","Syifa","Queen","Yunita","Anjar","Yohana","Syamsul","Adam","Marcell","Herlina","Pandu","Efendi","Nadia","Lina","Bobby","Vivi","Greget","Septi","Yunita","Sulis","Wis","Fauzul","Isti","Dwi","Liyak","Heru","Yaya","Nugroho","Dadang","Rofiq","Helmi","Jidan","Aji & Partner","Caca & Partner","Reyhan","Ajat & Erliza","Nurom","bintang","Esthiana","Susi","Dhita","Alumni XII RPL 1","Alumni Bantara Angkatan 14"];
+
         if (params.get('to')) {
             namaTampil = decodeURIComponent(params.get('to')).replace(/\+/g, ' ');
-        } 
-        // Cek jika ada parameter 'id' (berdasarkan urutan di spreadsheet)
-        else if (params.get('id')) {
-            const daftarTamu = ["Dahlia","Nila","Khafi","Puji","Dea","Elsa","Dinda","Arni","Selsa","Aril","Dimas","Ulil","Haris","Adhi","Nazar","Riska","Julia","Dimas","Apitri","Hepi","Haris","Happy","Vina","Defiatun","Evelyn","Devy Chusna","Uswatun","Rinanda","Widya","Fatma","Ana","Siska","Maziyah","Tasya","Nanda","Latifa","Putri","Isna","Lina","Nurhid","Fera","Yunita","Khoirina","Liyah","Eka","Anom","Arif","Agus","Anam","Risky","Fifi","Anggun","Nadia","Nadia","Rifky","Ryan","Wildan","Wisnu","David","Sandi","Zubaedi","Vina","Dennis","Asri","Najih","Fidia","Galang & Octa","Ashar","Isa Dewo","Mubin","Dila","Yaqin","Alvian","Agus","Lutfi","Meyta","Adam","Eli","Feri","Basyid","Nova","Itoul","zubaedi","Yogi","Nafa","Imam","Jaya","Jihan","Firman","Lintang","Tika","Fajrika","Bapak Nanang Apriliyanto","Bapak Gilang Kharisma Putra","Ibu Siti Abdillah","Ibu Eka Kurnia","Ibu Fitria Yuni","Zul","Wis","Viza","Amel","Novika","Sudirman","Bunda Novi","Bunda Imroatul","Ibu Milka","Ibu Tata","Wahyu","Jian","Fatoni","Anang","Riski dwi","Nopita","Tya","Damia","Erika","Adillia","Silda","Ani","Ani Suryani","Anita","Tsabit","Vella","Usna","Dheny","Dicky","Hana","Faqih","Fika","Gina","Ihan","Khusni","Ali","Leindra","Linda","Meylina","Anang","Nuria","Ridwan","Yasinta","Syifa","Ulil","Alif","Alina","SD N Pojoksari","Rifky","Syifa","Queen","Yunita","Anjar","Yohana","Syamsul","Adam","Marcell","Herlina","Pandu","Efendi","Nadia","Lina","Bobby","Vivi","Greget","Septi","Yunita","Sulis","Wis","Fauzul","Isti","Dwi","Liyak","Heru","Yaya","Nugroho","Dadang","Rofiq","Helmi","Jidan","Aji & Partner","Caca & Partner","Reyhan","Ajat & Erliza","Nurom","bintang","Esthiana","Susi","Dhita"];
+        } else if (params.get('id')) {
             const index = parseInt(params.get('id')) - 1;
             if (daftarTamu[index]) namaTampil = daftarTamu[index];
         }
 
-        // Tampilkan Nama & Rapikan Kapital
         namaTampil = namaTampil.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
         document.getElementById('namaTamu').innerText = namaTampil;
         document.getElementById('nama').value = namaTampil;
