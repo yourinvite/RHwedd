@@ -21,20 +21,22 @@
             margin: 0; padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             scroll-behavior: smooth;
-            background: #000; /* Latar hitam agar tidak kaget saat video load */
+            background: #000;
             color: var(--white);
-            overflow-x: hidden;
+            /* Kunci scroll saat pertama kali buka */
+            overflow: hidden; 
         }
 
         .section {
             position: relative;
             width: 100%;
-            height: 90vh; /* Diubah ke 100vh agar pas layar penuh */
+            height: 90vh; 
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
             overflow: hidden;
+            background: #000;
         }
 
         .video-bg {
@@ -43,9 +45,8 @@
             width: 100%;
             height: 100%;
             transform: translate(-50%, -50%);
-            object-fit: content; 
+            object-fit: cover; 
             z-index: 1;
-            background: #000;
         }
 
         .overlay {
@@ -83,7 +84,6 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
 
-        /* Loading Screen agar tidak layar hitam polos */
         #loader {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -94,9 +94,15 @@
         }
 
         #cover {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            position: fixed; 
+            top: 0; left: 0; 
+            width: 100%; height: 100vh;
+            background: #000; /* Agar tidak transparan */
             z-index: 9999; 
             transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
         .hidden { transform: translateY(-100%); pointer-events: none; }
@@ -140,7 +146,7 @@
 
     <audio id="audio" loop><source src="musik.mp3" type="audio/mpeg"></audio>
 
-    <section class="section" id="cover">
+    <section id="cover">
         <video id="videoCover" class="video-bg" autoplay muted loop playsinline preload="auto">
             <source src="halamandepan.mp4" type="video/mp4">
         </video>
@@ -153,10 +159,12 @@
     </section>
 
     <section class="section"><video class="video-bg" autoplay muted loop playsinline><source src="sampul.mp4" type="video/mp4"></video></section>
+    
     <section class="section">
         <video class="video-bg" autoplay muted loop playsinline><source src="Tanggal.mp4" type="video/mp4"></video>
-        <div class="content"><a href="http://maps.google.com" target="_blank" class="btn">KLIK LOKASI</a></div>
+        <div class="content"><a href="https://maps.google.com" target="_blank" class="btn">KLIK LOKASI</a></div>
     </section>
+
     <section class="section"><video class="video-bg" autoplay muted loop playsinline><source src="kisah1.mp4" type="video/mp4"></video></section>
     <section class="section"><video class="video-bg" autoplay muted loop playsinline><source src="kisah2.mp4" type="video/mp4"></video></section>
     <section class="section"><video class="video-bg" autoplay muted loop playsinline><source src="galeri.mp4" type="video/mp4"></video></section>
@@ -180,19 +188,17 @@
     </section>
 
     <script>
-        // Sembunyikan Loader saat video cover sudah bisa diputar
+        // Loader Logic
         const vCover = document.getElementById('videoCover');
         vCover.oncanplaythrough = function() {
             document.getElementById('loader').style.opacity = "0";
             setTimeout(() => { document.getElementById('loader').style.display = "none"; }, 500);
         };
-
-        // Jika dalam 5 detik video belum load, paksa hilangkan loader agar tamu tetap bisa buka
         setTimeout(() => { document.getElementById('loader').style.display = "none"; }, 5000);
 
+        // Nama Tamu Logic
         const params = new URLSearchParams(window.location.search);
         let namaTampil = "Tamu Undangan";
-
         const daftarTamu = ["Dahlia & Partner","Nila","Khafi","Puji","Dea","Elsa","Dinda","Arni","Selsa","Aril","Dimas","Ulil","Haris","Adhi","Nazar","Riska","Julia","Dimas","Apitri","Hepi","Haris","Happy","Vina","Defiatun","Evelyn","Devy Chusna","Uswatun","Rinanda","Widya","Fatma","Ana","Siska","Maziyah","Tasya","Nanda","Latifa","Putri","Isna","Lina","Nurhid","Fera","Yunita","Khoirina","Liyah","Eka","Anom","Arif","Agus","Anam","Risky","Fifi","Anggun","Nadia","Nadia","Rifky","Ryan","Wildan","Wisnu","David","Sandi","Zubaedi","Vina","Dennis","Asri","Najih","Fidia","Galang & Octa","Ashar","Isa Dewo","Mubin","Dila","Yaqin","Alvian","Agus","Lutfi","Meyta","Adam","Eli","Feri","Basyid","Nova","Itoul","zubaedi","Yogi","Nafa","Imam","Jaya","Jihan","Firman","Lintang","Tika","Fajrika","Bapak Nanang Apriliyanto","Bapak Gilang Kharisma Putra","Ibu Siti Abdillah","Ibu Eka Kurnia","Ibu Fitria Yuni","Zul","Wis","Viza","Amel","Novika","Sudirman","Bunda Novi","Bunda Imroatul","Ibu Milka","Ibu Tata","Wahyu","Jian","Fatoni","Anang","Riski dwi","Nopita","Tya","Damia","Erika","Adillia","Silda","Ani","Ani Suryani","Anita","Tsabit","Vella","Usna","Dheny","Dicky","Hana","Faqih","Fika","Gina","Ihan","Khusni","Ali","Leindra","Linda","Meylina","Anang","Nuria","Ridwan","Yasinta","Syifa","Ulil","Alif","Alina","SD N Pojoksari","Rifky","Syifa","Queen","Yunita","Anjar","Yohana","Syamsul","Adam","Marcell","Herlina","Pandu","Efendi","Nadia","Lina","Bobby","Vivi","Greget","Septi","Yunita","Sulis","Wis","Fauzul","Isti","Dwi","Liyak","Heru","Yaya","Nugroho","Dadang","Rofiq","Helmi","Jidan","Aji & Partner","Caca & Partner","Reyhan","Ajat & Erliza","Nurom","bintang","Esthiana","Susi","Dhita","Alumni XII RPL 1","Alumni Bantara Angkatan 14"];
 
         if (params.get('to')) {
@@ -206,15 +212,14 @@
         document.getElementById('namaTamu').innerText = namaTampil;
         document.getElementById('nama').value = namaTampil;
 
+        // Start App Logic
         function startApp() {
             document.getElementById('audio').play();
             document.getElementById('cover').classList.add('hidden');
-            document.body.style.overflow = "auto";
             
-            // Geser sedikit ke bawah ke video selanjutnya otomatis
-            setTimeout(() => {
-                window.scrollBy({ top: 10, behavior: 'smooth' });
-            }, 1000);
+            // Buka kunci scroll
+            document.body.style.overflow = "auto";
+            document.body.style.overflowX = "hidden";
         }
 
         function sendRSVP() {
