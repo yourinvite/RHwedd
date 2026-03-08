@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Undangan Pernikahan Digital</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +14,7 @@
             --primary-maroon: #800000;
             --soft-pink: #fce4ec;
             --accent-pink: #f06292;
-            --light-purple: #9c4d97; /* Warna ungu muda untuk tombol WA */
+            --light-purple: #a4509b; /* Warna ungu sedikit muda sesuai permintaan */
             --white: #ffffff;
         }
 
@@ -24,9 +24,10 @@
             background: #000;
             color: var(--white);
             overflow-x: hidden;
+            width: 100%;
+            height: 100%;
         }
 
-        /* Halaman Depan / Cover */
         #cover {
             position: fixed;
             top: 0; left: 0;
@@ -46,7 +47,7 @@
         .section {
             position: relative;
             width: 100%;
-            height: 95vh; /* Sedikit penyesuaian agar pas di berbagai layar */
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -61,7 +62,6 @@
             transform: translate(-50%, -50%);
             object-fit: cover;
             z-index: 1;
-            background-color: transparent;
         }
 
         .overlay {
@@ -99,13 +99,18 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
 
-        /* Container Tombol WA Sejajar Atas Bawah */
+        /* PERBAIKAN POSISI: Mengunci tombol di bawah tulisan Konfirmasi di video */
         .wa-container {
+            position: absolute;
+            bottom: 5%; /* Diturunkan dari 8% ke 5% agar di bawah teks video */
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 8px;
+            z-index: 20;
+            width: 100%;
             align-items: center;
-            margin-top: 15px;
         }
 
         .btn-wa {
@@ -115,20 +120,13 @@
             border: none;
             border-radius: 30px;
             text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 400; /* Tidak terlalu bold */
-            width: 220px;
+            font-size: 0.85rem;
+            font-weight: 400; /* Tulisan tidak terlalu bold */
+            width: 180px;
             text-align: center;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            transition: 0.3s;
         }
 
-        .btn-wa:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-
-        /* Form RSVP */
         #rsvp-section {
             background: #fffafa;
             padding: 50px 0;
@@ -167,29 +165,26 @@
     </div>
 
     <div id="wrapper">
-        <div class="section">
-            <video class="video-bg" autoplay muted loop playsinline><source src="sampul.mp4" type="video/mp4"></video>
-        </div>
+        <div class="section"><video class="video-bg" autoplay muted loop playsinline><source src="sampul.mp4" type="video/mp4"></video></div>
 
         <div class="section">
             <video class="video-bg" autoplay muted loop playsinline><source src="Tanggal.mp4" type="video/mp4"></video>
-            <div class="content"><a href="https://maps.google.com" target="_blank" class="btn">KLIK LOKASI</a></div>
+            <div class="content" style="position: absolute; bottom: 12%;">
+                <a href="https://maps.google.com" target="_blank" class="btn">KLIK LOKASI</a>
+            </div>
         </div>
 
-        <div class="section">
-            <video class="video-bg" autoplay muted loop playsinline><source src="bridegroom.mp4" type="video/mp4"></video>
-        </div>
+        <div class="section"><video class="video-bg" autoplay muted loop playsinline><source src="bridegroom.mp4" type="video/mp4"></video></div>
         <div class="section"><video class="video-bg" autoplay muted loop playsinline><source src="kisah1.mp4" type="video/mp4"></video></div>
+        <div class="section"><video class="video-bg" autoplay muted loop playsinline><source src="kisah2.mp4" type="video/mp4"></video></div>
         <div class="section"><video class="video-bg" autoplay muted loop playsinline><source src="galeri.mp4" type="video/mp4"></video></div>
         <div class="section"><video class="video-bg" autoplay muted loop playsinline><source src="prewed.mp4" type="video/mp4"></video></div>
 
         <div class="section">
             <video class="video-bg" autoplay muted loop playsinline><source src="Amplop.mp4" type="video/mp4"></video>
-            <div class="content">
-                <div class="wa-container">
-                    <a href="https://wa.me/6289518680371" target="_blank" class="btn-wa">Konfirmasi Pria</a>
-                    <a href="https://wa.me/6289652710801" target="_blank" class="btn-wa">Konfirmasi Wanita</a>
-                </div>
+            <div class="wa-container">
+                <a href="https://wa.me/628123456789" target="_blank" class="btn-wa">Konfirmasi Pria</a>
+                <a href="https://wa.me/628987654321" target="_blank" class="btn-wa">Konfirmasi Wanita</a>
             </div>
         </div>
 
