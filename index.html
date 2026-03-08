@@ -25,33 +25,29 @@
             color: var(--white);
             overflow-x: hidden;
             width: 100%;
+            height: 100%;
         }
 
-        /* 1. Perbaikan Ukuran Video: Mengikuti proporsi asli video */
+        /* PERBAIKAN UTAMA: Menggunakan contain agar tidak zoom */
         .section {
             position: relative;
             width: 100%;
-            min-height: 100vh; /* Minimal setinggi layar */
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             background-color: #000;
             margin: 0;
             padding: 0;
+            overflow: hidden;
         }
 
-        .video-bg {
+        video {
             width: 100%;
             height: 100%;
+            /* Ini yang bikin video tampil ukuran asli & tidak terpotong */
+            object-fit: contain; 
             display: block;
-            object-fit: fill; /* Ini akan menyesuaikan video ke kotak tanpa zoom */
-        }
-
-        /* Jika kamu ingin benar-benar ukuran asli tanpa distorsi sedikitpun, gunakan ini: */
-        @supports (object-fit: cover) {
-            .video-bg {
-                object-fit: cover; 
-            }
         }
 
         #cover {
@@ -70,15 +66,12 @@
 
         .hidden { transform: translateY(-100%); opacity: 0; pointer-events: none; }
 
-        /* 2. Tombol Klik Lokasi di Tengah */
-        .content-overlay {
+        /* Tombol Klik Lokasi di Tengah */
+        .overlay-content {
             position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             z-index: 10;
+            width: 100%;
+            text-align: center;
         }
 
         .btn {
@@ -93,10 +86,10 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
 
-        /* 3. Tombol Konfirmasi 25% Posisinya */
+        /* Tombol Konfirmasi 25% dari bawah */
         .wa-container {
             position: absolute;
-            bottom: 20%; 
+            bottom: 15%; 
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -142,45 +135,37 @@
             border-radius: 8px; border: 1px solid #ccc;
             box-sizing: border-box;
         }
-
-        .overlay-dark {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.3);
-            z-index: 2;
-        }
     </style>
 </head>
 <body style="overflow: hidden;"> 
     <audio id="audio" loop><source src="musik.mp3" type="audio/mpeg"></audio>
 
     <div id="cover">
-        <video class="video-bg" autoplay muted loop playsinline><source src="halamandepan.mp4" type="video/mp4"></video>
-        <div class="overlay-dark"></div>
-        <div class="content-overlay" style="flex-direction: column;">
-            <p style="font-size: 0.9rem; color: white;">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
-            <h1 id="namaTamu" style="color: var(--soft-pink); font-family: 'Pinyon Script'; font-size: 2.8rem;">Tamu Undangan</h1>
+        <video autoplay muted loop playsinline><source src="halamandepan.mp4" type="video/mp4"></video>
+        <div class="overlay-content">
+            <p style="font-size: 0.9rem;">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+            <h1 id="namaTamu" style="font-family: 'Pinyon Script'; font-size: 2.8rem; color: var(--soft-pink);">Tamu Undangan</h1>
             <button class="btn" onclick="startApp()">BUKA UNDANGAN</button>
         </div>
     </div>
 
     <div id="wrapper">
-        <div class="section"><video class="video-bg" autoplay muted loop playsinline><source src="sampul.mp4" type="video/mp4"></video></div>
+        <div class="section"><video autoplay muted loop playsinline><source src="sampul.mp4" type="video/mp4"></video></div>
 
         <div class="section">
-            <video class="video-bg" autoplay muted loop playsinline><source src="Tanggal.mp4" type="video/mp4"></video>
-            <div class="content-overlay">
+            <video autoplay muted loop playsinline><source src="Tanggal.mp4" type="video/mp4"></video>
+            <div class="overlay-content">
                 <a href="https://maps.google.com" target="_blank" class="btn">KLIK LOKASI</a>
             </div>
         </div>
 
-        <div class="section"><video class="video-bg" autoplay muted loop playsinline><source src="bridegroom.mp4" type="video/mp4"></video></div>
-        <div class="section"><video class="video-bg" autoplay muted loop playsinline><source src="kisah1.mp4" type="video/mp4"></video></div>
-        <div class="section"><video class="video-bg" autoplay muted loop playsinline><source src="galeri.mp4" type="video/mp4"></video></div>
-        <div class="section"><video class="video-bg" autoplay muted loop playsinline><source src="prewed.mp4" type="video/mp4"></video></div>
+        <div class="section"><video autoplay muted loop playsinline><source src="bridegroom.mp4" type="video/mp4"></video></div>
+        <div class="section"><video autoplay muted loop playsinline><source src="kisah1.mp4" type="video/mp4"></video></div>
+        <div class="section"><video autoplay muted loop playsinline><source src="galeri.mp4" type="video/mp4"></video></div>
+        <div class="section"><video autoplay muted loop playsinline><source src="prewed.mp4" type="video/mp4"></video></div>
 
         <div class="section">
-            <video class="video-bg" autoplay muted loop playsinline><source src="Amplop.mp4" type="video/mp4"></video>
+            <video autoplay muted loop playsinline><source src="Amplop.mp4" type="video/mp4"></video>
             <div class="wa-container">
                 <a href="https://wa.me/6289518680371" target="_blank" class="btn-wa">Konfirmasi Pria</a>
                 <a href="https://wa.me/6289652710801" target="_blank" class="btn-wa">Konfirmasi Wanita</a>
