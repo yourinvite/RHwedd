@@ -29,18 +29,32 @@
         }
 
         /* PERBAIKAN UTAMA: Menggunakan contain agar tidak zoom */
-        .section {
+          .section {
             position: relative;
             width: 100%;
-            height: 100vh;
+            height: 90vh; /* Pakai 100vh agar pas satu layar penuh */
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #000;
-            margin: 0;
-            padding: 0;
             overflow: hidden;
         }
+
+        video {
+            /* Kuncinya di sini: Jangan pakai 100% tinggi/lebar secara bersamaan */
+            max-width: 100vw;
+            max-height: 100vh;
+            width: auto;
+            height: auto;
+            display: block;
+            z-index: 1;
+        }
+
+        /* Ini untuk memastikan tidak ada padding/margin siluman dari browser */
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
 
         video {
             width: 100%;
