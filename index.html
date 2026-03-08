@@ -33,35 +33,33 @@
             height: 100%;
         }
 
-        #cover {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100vh;
-            background: #000;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            transition: 1s ease-in-out;
-        }
+#cover {  
+        position: fixed;  
+        top: 0; left: 0;  
+        width: 100%; height: 100vh;  
+        background: #000;  
+        z-index: 9999;  
+        display: flex;  
+        flex-direction: column;  
+        justify-content: center;  
+        align-items: center;  
+        text-align: center;  
+        transition: 1s ease-in-out;  
+    }  
 
-        .hidden { transform: translateY(-100%); opacity: 0; pointer-events: none; }
+    .hidden { transform: translateY(-100%); opacity: 0; pointer-events: none; }
 
-.section {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    background: #000;
-    /* Tambahkan ini untuk menghilangkan celah antar section */
-    margin-bottom: -1px; 
+    .section {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+/* Tambahkan ini untuk menghilangkan celah antar section */
+margin-bottom: -1px;
 }
-
 video {
     width: 100%;
     height: 100%;
@@ -93,7 +91,7 @@ video {
         /* Samakan Ukuran Tombol Konfirmasi */
         .wa-container {
             position: absolute;
-            bottom: 25%; 
+            bottom: 15%; 
             left: 50%;
             transform: translateX(-50%);
             display: flex;
